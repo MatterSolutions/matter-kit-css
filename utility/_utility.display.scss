@@ -1,0 +1,276 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Utility - Display
+//
+// 	Display an element, or affect it's display
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-util-display-name: display !default;
+
+@if ( map-has-key( __mk_get_global_utility_map(), $mk-util-display-name ) ) {
+
+	$mk-util-display-selector: mk-get-selector( $mk-util-display-name, map-get( map-get( __mk_get_global_utility_map(), $mk-util-display-name ), 'base' ), $mk-util-prefix ) !global;
+	$map: map-get( __mk_get_global_utility_map(), $mk-util-display-name );
+
+	#{ $mk-util-display-selector } {
+
+		// Center
+		@if ( map-has-key( $map, 'center' ) ) {
+
+			&--center {
+
+				margin-left: auto;
+				margin-right: auto;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'center--#{ $breakpoints }' ) ) {
+
+					&--center\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							margin-left: auto;
+							margin-right: auto;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+		// Left display
+		@if ( map-has-key( $map, 'left' ) ) {
+
+			&--left {
+
+				margin-right: auto;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'left--#{ $breakpoints }' ) ) {
+
+					&--left\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							margin-right: auto;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+
+		// Right display
+		@if ( map-has-key( $map, 'right' ) ) {
+
+			&--right {
+
+				left: auto;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'right--#{ $breakpoints }' ) ) {
+
+					&--right\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							left: auto;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+		// Show
+		@if ( map-has-key( $map, 'show' ) ) {
+
+			&--show {
+
+				display: block;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'show--#{ $breakpoints }' ) ) {
+
+					&--show\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							display: block;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+
+		// Hide
+		@if ( map-has-key( $map, 'hide' ) ) {
+
+			&--hide {
+
+				display: none;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'hide--#{ $breakpoints }' ) ) {
+
+					&--hide\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							display: none;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+
+
+		// Invisible
+		@if ( map-has-key( $map, 'invisible' ) ) {
+
+			&--invisible {
+
+				opacity: 0;
+				visibility: hidden;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'invisible--#{ $breakpoints }' ) ) {
+
+					&--invisible\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							opacity: 0;
+							visibility: hidden;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+
+		// Visible
+		@if ( map-has-key( $map, 'visible' ) ) {
+
+			&--visible {
+
+				opacity: 1;
+				visibility: visible;
+				map: inspect( $map );
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'visible--#{ $breakpoints }' ) ) {
+
+					&--visible\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							opacity: 1;
+							visibility: visible;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+	}
+
+}

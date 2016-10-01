@@ -1,0 +1,225 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Global Functions - Colours
+//
+// 	Setup and retrieve the project colours
+//
+// ---------------------------------------------------------------------------- *
+
+
+
+
+
+// ------------------------------------------------
+//	Add a colour to the global colours array
+// ------------------------------------------------
+
+@mixin mk-add-color( $name, $key, $value ) {
+
+	$mk-global-palette: mk-add-data( __mk_get_global_palette_map(), $name, $key, $value ) !global;
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Add a colour to the global element colours array
+// ------------------------------------------------
+
+@mixin mk-add-element-color( $name, $key, $value ) {
+
+	$mk-global-palette--elements: mk-add-data( __mk_get_global_element_palette_map(), $name, $key, $value ) !global;
+
+}
+
+
+
+
+
+// ------------------------------------------------
+//	Retrieve a colour from an array
+// ------------------------------------------------
+
+@function mk-color( $name, $key: 'base' ) {
+
+	@if ( $mk-global-palette ) {
+
+		$map: $mk-global-palette;
+		$map-name-exists: map-has-key( $map, $name );
+		$map-key-exists: null;
+
+		// Check to see if the requested name exists
+		@if ( $map-name-exists ) {
+
+			$map-key-exists: map-has-key( map-get( $map, $name ), $key );
+
+		}
+
+		@else {
+
+			@warn "Unknown '#{ $name }' in $mk-global-palette.";
+			@return null;
+
+		}
+
+		// Check to see if the requested key exists
+		@if ( $map-key-exists ) {
+
+			@return map-get( map-get( $map, $name ), $key );
+
+		}
+
+		@else {
+
+			@warn "Unknown '#{ $key }' in $mk-global-palette( #{ $name } ).";
+			@return null;
+
+		}
+
+	} 
+
+	@else {
+
+		@warn "Global palette has not yet been set.";
+		@return null;
+
+	}
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Retrieve a colour from the element colour array
+// ------------------------------------------------
+
+@function mk-element-color( $name, $key: 'base' ) {
+
+	@if ( $mk-global-palette--elements ) {
+
+		$map: $mk-global-palette--elements;
+		$map-name-exists: map-has-key( $map, $name );
+		$map-key-exists: null;
+
+		// Check to see if the requested name exists
+		@if ( $map-name-exists ) {
+
+			$map-key-exists: map-has-key( map-get( $map, $name ), $key );
+
+		}
+
+		@else {
+
+			@warn "Unknown '#{ $name }' in $mk-global-palette--elements.";
+			@return null;
+
+		}
+
+		// Check to see if the requested key exists
+		@if ( $map-key-exists ) {
+
+			@return map-get( map-get( $map, $name ), $key );
+
+		}
+
+		@else {
+
+			@warn "Unknown '#{ $key }' in $mk-global-palette--elements( #{ $name } ).";
+			@return null;
+
+		}
+
+	} 
+
+	@else {
+
+		@warn "Global element palette has not yet been set.";
+		@return null;
+
+	}
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Get the global palette map
+// ------------------------------------------------
+
+@function __mk_get_global_palette_map() {
+
+	@return $mk-global-palette;
+
+}
+
+
+
+// ------------------------------------------------
+//	Get the global element palette map
+// ------------------------------------------------
+
+@function __mk_get_global_element_palette_map() {
+
+	@return $mk-global-palette--elements;
+
+}
+
+
+
+
+
+// ------------------------------------------------
+//	Choose light or dark that will contrast with the supplied colour
+// ------------------------------------------------
+
+@function mk-get-contrast-tone( $color ) {
+
+	@if ( lightness( $color ) < 60 ) {
+
+		@return dark;
+	
+	}
+
+	@else {
+
+		@return light;
+
+	}
+
+}
+
+
+
+
+
+// ------------------------------------------------
+//	Check if a colour is too close in brightness to the base text
+// ------------------------------------------------
+
+@function mk-colour-is-dark( $color ) {
+
+	@if ( lightness( $color ) < 60 ) {
+
+		@return true;
+	
+	}
+
+	@else {
+
+		@return null;
+
+	}
+
+}

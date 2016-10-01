@@ -1,0 +1,205 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Utility - Backgrounds
+//
+// 	Set background sizing and styling utilities
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-util-background-name: bg !default;
+
+@if ( map-has-key( __mk_get_global_utility_map(), $mk-util-background-name ) ) {
+
+	$mk-util-background-selector: mk-get-selector( $mk-util-background-name, map-get( map-get( __mk_get_global_utility_map(), $mk-util-background-name ), 'base' ), $mk-util-prefix ) !default;
+	$map: map-get( __mk_get_global_utility_map(), $mk-util-background-name );
+
+	#{ $mk-util-background-selector } {
+
+
+		// Contain
+		@if ( map-has-key( $map, 'contain' ) ) {
+
+			&--contain {
+
+				background-size: contain;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'contain--#{ $breakpoints }' ) ) {
+
+					&--contain\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							background-size: contain;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+		// Cover
+		@if ( map-has-key( $map, 'cover' ) ) {
+
+			&--cover {
+
+				background-size: cover;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'cover--#{ $breakpoints }' ) ) {
+
+					&--cover\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							background-size: cover;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+		
+
+
+
+
+		// Repeat
+		@if ( map-has-key( $map, 'cover' ) ) {
+
+			&--repeat {
+
+				background-repeat: repeat;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'repeat--#{ $breakpoints }' ) ) {
+
+					&--repeat\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							background-repeat: repeat;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+		// Center
+		@if ( map-has-key( $map, 'center' ) ) {
+
+			&--center {
+
+				background-position: center;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'center--#{ $breakpoints }' ) ) {
+
+					&--center\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							background-position: center;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+		// Our background colour helpers, ALL of them
+		@each $colourgroup, $colourmap in __mk_get_global_palette_map() {
+
+			@each $colourtype, $colourshade in $colourmap {
+
+				@if ( map-has-key( $map, #{ $colourgroup }-#{ $colourtype } ) ) {
+
+					&--#{ $colourgroup }-#{ $colourtype } {
+
+						background-color: $colourshade;
+
+						// Loop through each breakpoint
+						// Check if we want to output the breakpoint
+						@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+							@if ( map-has-key( $map, '#{ $colourgroup }-#{ $colourtype }--#{ $breakpoints }' ) ) {
+
+								&--#{ $colourgroup }-#{ $colourtype }\@#{ $breakpoints } {
+
+									@include mk-media-query( "#{ $breakpoints }" ) {
+
+										background-color: $colourshade;
+
+									}
+
+								}
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+}

@@ -1,0 +1,68 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Object - Ratio
+//
+// 	Force a standard ratio of an element
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-obj-ratio-name: ratio !default;
+
+@if ( map-has-key( __mk_get_global_objects_map(), $mk-obj-ratio-name ) ) {
+	
+	$mk-obj-ratio-selector: mk-get-selector( $mk-obj-ratio-name, map-get( map-get( __mk_get_global_objects_map(), $mk-obj-ratio-name ), 'base' ), $mk-obj-prefix ) !default;
+	$map: map-get( __mk_get_global_objects_map(), $mk-obj-ratio-name );
+
+	#{ $mk-obj-ratio-selector } {
+
+		padding: 0  0  66.666%  0;
+		position: relative;
+		width: 100%;
+
+
+		&__body {
+
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+
+		}
+
+
+		// Square size
+		@if ( map-has-key( $map, 'square' ) ) {
+
+			&--square {
+
+				padding-bottom: 100%;
+
+			}
+
+		}
+
+
+		// Video 
+		@if ( map-has-key( $map, 'video' ) ) {
+
+			&--video {
+
+				padding-bottom: 56.25%;
+
+			}
+
+		}
+
+	}
+
+}

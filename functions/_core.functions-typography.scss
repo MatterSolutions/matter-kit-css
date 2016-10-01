@@ -1,0 +1,253 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Global Functions - Typography
+//
+// 	Setup and retrieve the project typography information
+//
+// ---------------------------------------------------------------------------- *
+
+
+
+
+
+// ------------------------------------------------
+//	Add a colour to the global typography array
+// ------------------------------------------------
+
+@mixin mk-add-typography( $name, $key, $value ) {
+
+	$mk-global-typography: mk-add-data( __mk_get_global_typography_map(), $name, $key, $value ) !global;
+
+	@if ( $name == base and $key == line-height ) {
+
+		$mk-global-base-spacing: __mk-update-base-spacing-unit-sizes() !global;
+
+	}
+
+}
+
+
+
+
+
+// ------------------------------------------------
+//	Retrieve a colour from an array
+// ------------------------------------------------
+
+@function mk-typography( $name, $key: 'base' ) {
+
+	@if ( $mk-global-typography ) {
+
+		$map: $mk-global-typography;
+		$map-name-exists: map-has-key( $map, $name );
+		$map-key-exists: null;
+
+		// Check to see if the requested name exists
+		@if ( $map-name-exists ) {
+
+			$map-key-exists: map-has-key( map-get( $map, $name ), $key );
+
+		}
+
+		@else {
+
+			@warn "Unknown '#{ $key }' in $mk-global-typography( #{ $name } ).";
+			@return null;
+
+		}
+
+		// Check to see if the requested key exists
+		@if ( $map-key-exists ) {
+
+			@if ( $name == face ) {
+
+				@return unquote( map-get( map-get( $map, $name ), $key ) );
+
+			} @else {
+
+				@return map-get( map-get( $map, $name ), $key );
+
+			}
+
+		}
+
+		@else {
+
+			@warn "Unknown '#{ $name }' in $mk-global-typography.";
+			@return null;
+
+		}
+
+	} 
+
+	@else {
+
+		@warn "Global typography has not yet been set.";
+		@return null;
+
+	}
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Get the global typography map
+// ------------------------------------------------
+
+@function __mk_get_global_typography_map() {
+
+	@return $mk-global-typography;
+
+}
+
+
+
+// ------------------------------------------------
+//	Calculate the position within the type scale
+// ------------------------------------------------
+
+@function calc-type-scale( $scale-position, $pixel-size: mk-typography( size, base ), $scale: mk-typography( base, type-scale ) ) {
+
+	@return ( pow( $scale, $scale-position ) * $pixel-size );
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Calculate the rem size
+// ------------------------------------------------
+
+@function calc-rem( $px-size, $rem: mk-typography( size, base ) ) {
+
+	@if $px-size == 0 { @return 0 }
+	@return strip-unit( $px-size ) / strip-unit( $rem ) + 0rem;
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Calculate the em size
+// ------------------------------------------------
+
+@function calc-em( $px-size, $context-px-size: mk-typography( size, base ) ) {
+
+	@if $px-size == 0 { @return 0 }
+	@return strip-unit( $px-size ) / strip-unit( $context-px-size ) + 0em;
+
+}
+
+
+
+
+
+// ------------------------------------------------
+//	Update the base spacing unit
+// ------------------------------------------------
+
+@function __mk-update-base-spacing-unit-sizes() {
+
+	$map: (
+
+		nano:                             mk-typography( base, line-height ) / 8,
+		tiny:                             mk-typography( base, line-height ) / 4,
+		small:                            mk-typography( base, line-height ) / 2,
+		base:                             mk-typography( base, line-height ),
+		large:                            mk-typography( base, line-height ) * 2,
+		huge:                             mk-typography( base, line-height ) * 4,
+		giga:                             mk-typography( base, line-height ) * 8,
+
+	);
+
+	@return $map;
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Get the base spacing unit map
+// ------------------------------------------------
+
+@function __mk-get-base-spacing-unit-map() {
+
+	@return $mk-global-base-spacing;
+
+}
+
+
+
+// ------------------------------------------------
+//	Get a base spacing unit
+// ------------------------------------------------
+
+@function mk-base-spacing-unit( $amount: 'base', $rem: true ) {
+
+	$map: __mk-get-base-spacing-unit-map();
+
+	// Return the base spacing unit * the number provided
+	@if ( type-of( $amount ) == 'number' ) {
+
+		$value: ( map-get( $map, 'base' ) * strip-unit( $amount ) );
+
+		@if ( $rem == true ) {
+
+			@return calc-rem( $value );
+
+		} 
+
+		@else {
+
+			@return $value;
+
+		}
+
+	}
+
+	// Check for a generic reusable size
+	@else {
+
+		@if ( map-has-key( $map, $amount ) ) {
+
+			$value: map-get( $map, $amount );
+
+			@if ( $rem == true ) {
+
+				@return calc-rem( $value );
+
+			} 
+
+			@else {
+
+				@return $value;
+
+			}
+
+		}
+
+		@else {
+
+			@warn "The requested #{ $amount } doesn't exist in $mk-global-base-spacing";
+
+		}
+
+	}
+
+	@return null;
+
+}

@@ -1,0 +1,35 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Global Setup - Utility
+//
+// 	Import our utility classes
+//
+// ---------------------------------------------------------------------------- *
+
+// Import Bourbon
+@import '../bourbon/app/assets/stylesheets/bourbon';
+
+
+// Import global var declarations
+@import 'config/config.global-colors-greys';
+@import 'config/config.global-vars-base';
+
+
+// Import core functions
+@import 'functions/core.functions';
+@import 'functions/core.functions-colors';
+@import 'functions/core.functions-typography';
+@import 'functions/core.functions-grid';
+@import 'functions/core.functions-misc';
+@import 'functions/core.functions-objects';
+@import 'functions/core.functions-components';
+@import 'functions/core.functions-utility';

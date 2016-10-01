@@ -1,0 +1,549 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Utility - Text
+//
+// 	Text manipulation helpers
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-util-text-name: text !default;
+
+@if ( map-has-key( __mk_get_global_utility_map(), $mk-util-text-name ) ) {
+
+	$mk-util-text-selector: mk-get-selector( $mk-util-text-name, map-get( map-get( __mk_get_global_utility_map(), $mk-util-text-name ), 'base' ), $mk-util-prefix ) !default;
+	$map: map-get( __mk_get_global_utility_map(), $mk-util-text-name );
+
+	#{ $mk-util-text-selector } {
+
+		// Center
+		@if ( map-has-key( $map, 'center' ) ) {
+
+			&--center {
+
+				text-align: center !important;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'center--#{ $breakpoints }' ) ) {
+
+					&--center\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							text-align: center !important;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+		
+		// Left
+		@if ( map-has-key( $map, 'left' ) ) {
+
+			&--left {
+
+				text-align: left !important;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'left--#{ $breakpoints }' ) ) {
+
+					&--left\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							text-align: left !important;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+		// Right
+		@if ( map-has-key( $map, 'right' ) ) {
+
+			&--right {
+
+				text-align: right !important;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'right--#{ $breakpoints }' ) ) {
+
+					&--right\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							text-align: right !important;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+		// undecorated - no text decoration
+		@if ( map-has-key( $map, 'undecorated' ) ) {
+
+			&--undecorated {
+
+				text-decoration: none !important;
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'undecorated--#{ $breakpoints }' ) ) {
+
+						&--undecorated\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								text-decoration: none !important;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+		// Justify
+		@if ( map-has-key( $map, 'justify' ) ) {
+
+			&--justify {
+
+				text-align: justify !important;
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'justify--#{ $breakpoints }' ) ) {
+
+						&--justify\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								text-align: justify !important;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+		// No Wrap
+		@if ( map-has-key( $map, 'no-wrap' ) ) {
+
+			&--no-wrap {
+
+				white-space: nowrap !important;
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'no-wrap--#{ $breakpoints }' ) ) {
+
+						&--no-wrap\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								white-space: nowrap !important;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+		// Force Wrap
+		@if ( map-has-key( $map, 'wrap' ) ) {
+
+			&--wrap {
+
+				overflow-wrap: break-word;
+  				word-wrap: break-word;
+  				word-break: break-all;
+  				hyphens: auto;
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'wrap--#{ $breakpoints }' ) ) {
+
+						&--wrap\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								overflow-wrap: break-word;
+				  				word-wrap: break-word;
+				  				word-break: break-all;
+				  				hyphens: auto;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+		// Lowercase
+		@if ( map-has-key( $map, 'lowercase' ) ) {
+
+			&--lowercase {
+
+				text-transform: lowercase;
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'lowercase--#{ $breakpoints }' ) ) {
+
+						&--lowercase\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								text-transform: lowercase;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+		// Uppercase
+		@if ( map-has-key( $map, 'uppercase' ) ) {
+
+			&--uppercase {
+
+				text-transform: uppercase;
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'uppercase--#{ $breakpoints }' ) ) {
+
+						&--uppercase\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								text-transform: uppercase;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+		// No transform
+		@if ( map-has-key( $map, 'no-transform' ) ) {
+
+			&--no-transform {
+
+				text-transform: none;
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'no-transform--#{ $breakpoints }' ) ) {
+
+						&--no-transform\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								text-transform: none;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+		// Capitalize
+		@if ( map-has-key( $map, 'capitalize' ) ) {
+
+			&--capitalize {
+
+				text-transform: capitalize;
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'capitalize--#{ $breakpoints }' ) ) {
+
+						&--capitalize\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								text-transform: capitalize;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+		// Bold
+		@if ( map-has-key( $map, 'bold' ) ) {
+
+			&--weight-bold {
+
+				font-weight: mk-typography( weight, primary--bold );
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'weight-bold--#{ $breakpoints }' ) ) {
+
+						&--weight-bold\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								font-weight: mk-typography( weight, primary--bold );
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+		// Normal
+		@if ( map-has-key( $map, 'normal' ) ) {
+
+			&--weight-normal {
+
+				font-weight: mk-typography( weight, primary--normal );
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'weight-normal--#{ $breakpoints }' ) ) {
+
+						&--weight-normal\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								font-weight: mk-typography( weight, primary--normal );
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+
+		// Italic
+		@if ( map-has-key( $map, 'italic' ) ) {
+
+			&--italic {
+
+				font-style: italic;
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'italic--#{ $breakpoints }' ) ) {
+
+						&--italic\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								font-style: italic;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+
+
+		// Colours
+		// Our background colour helpers, ALL of them
+		@each $colourgroup, $colourmap in __mk_get_global_palette_map() {
+
+			@each $colourtype, $colourshade in $colourmap {
+
+				@if ( map-has-key( $map, #{ $colourgroup }-#{ $colourtype } ) ) {
+
+					&--#{ $colourgroup }-#{ $colourtype } {
+
+						color: $colourshade;
+
+						// Loop through each breakpoint
+						// Check if we want to output the breakpoint
+						@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+							@if ( map-has-key( $map, '#{ $colourgroup }-#{ $colourtype }--#{ $breakpoints }' ) ) {
+
+								&--#{ $colourgroup }-#{ $colourtype }\@#{ $breakpoints } {
+
+									@include mk-media-query( "#{ $breakpoints }" ) {
+
+										color: $colourshade;
+
+									}
+
+								}
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+}

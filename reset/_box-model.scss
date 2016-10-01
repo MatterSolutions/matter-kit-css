@@ -1,0 +1,38 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Reset - Box Sizing
+//
+// 	Force a global standard of border-box, this can be changed
+//	on an element basis, with child elements inheriting from the parent
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-box-sizing: border-box !default;
+
+
+@if ( $mk-reset-box-model == true ) {
+
+	html {
+		box-sizing: border-box;
+	}
+
+	* {
+
+		&,
+		&:before,
+		&:after {
+				box-sizing: inherit;
+			}
+
+	}
+
+}

@@ -1,0 +1,189 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Global Vars - Base
+//
+// 	Declare the primary global variables for use throughout the project
+//
+// ---------------------------------------------------------------------------- *
+
+
+// Set a default namespace of nothing! 
+// This can be changed to force objects to output namespaced classes
+$mk-namespace:                        '' !default;
+
+
+
+
+// Set a global theme for default, we can override this to include different 'themes'
+$mk-global-theme:                     default !default;
+
+
+
+
+
+// Primary Project Colours
+$mk-global-palette: (
+
+	primary: (
+
+		base:                         #ff0000,
+
+	),
+	secondary: (
+
+		base:                         #fff000,
+
+	),
+	grey-ui: (
+
+		base:                         $mk-color--smoke,
+		light:                        $mk-color--white-smoke,
+		dark:                         $mk-color--oil,
+		white-ui:                     $mk-color--white,
+		black-ui:                     $mk-color--black,
+
+	),
+	utility: (
+
+		base:                         $mk-color--smoke, // Grey
+		positive:                     #00B16A, // Green
+		negative:                     #CF000F, // Red
+		warning:                      #F9690E, // Orange
+
+	)
+
+) !global;
+
+// Project Element Colours
+$mk-global-palette--elements:        (
+
+	page: (
+
+		background:                  $mk-color--white,
+		color:                       $mk-color--oil,
+
+	),
+
+) !global;
+
+
+
+
+
+// Grid - set defaults
+$mk-global-grid: (
+
+	base: (
+
+		columns:                     12,
+		gutter:                      20px,
+		page-gutter:                 20px,
+		wrap-width:                  1170px,
+
+	)
+
+) !global;
+
+
+// Grid - set widths for helper classes
+$mk-global-grid-widths:              () !global;
+
+
+
+
+
+// Typography
+$mk-typography-prefix:     unquote( 't-' ) !default;
+$mk-global-typography:                (
+
+	base: (
+
+		type-scale:                   1.25,
+		line-height:                  26px,
+		line-length:                  55rem,		
+
+	),
+	size: (
+
+		base:                         16px,
+
+	),
+	face: (
+
+		primary:                      "'Open Sans', Verdana, sans-serif",
+
+	),
+	weight: (
+
+		primary--normal:              400,
+		primary--bold:                600,
+
+	)
+
+) !global;
+
+
+
+
+
+// Base Spacing Unit
+$mk-global-base-spacing: () !global;
+
+
+
+
+// Misc Config
+$mk-global-misc-config: (
+
+	border: (
+
+		width: 1px,
+		style: solid,
+		color: $mk-color--smoke,
+		radius: 0,
+
+	),
+	transition: (
+
+		base: .5s,
+		slow: .7s,
+		fast: .2s
+
+	),
+	padding: (
+
+		single-column: map-get( map-get( $mk-global-grid, base ), page-gutter )
+
+	)
+
+) !global;
+
+
+
+
+
+// Objects
+$mk-obj-prefix:            unquote( 'o-' ) !default;
+$mk-global-objects:        () !global;
+
+
+
+// Components
+$mk-util-prefix:           unquote( 'u-' ) !default;
+$mk-global-utility:        () !global;
+
+
+
+
+// Components
+$mk-components-prefix:     unquote( 'c-' ) !default;
+$mk-global-components:     () !global;

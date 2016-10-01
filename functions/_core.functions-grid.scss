@@ -1,0 +1,308 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Global Functions - Grid
+//
+// 	Setup and retrieve the project grid configuration
+//
+// ---------------------------------------------------------------------------- *
+
+
+
+
+
+// ------------------------------------------------
+//	Add a grid config to the global grid array
+// ------------------------------------------------
+
+@mixin mk-add-grid-config( $name, $key, $value ) {
+
+	$mk-global-grid: mk-add-data( __mk_get_global_grid_config_map(), $name, $key, $value ) !global;
+
+}
+
+
+
+
+
+
+// ------------------------------------------------
+//	Retrieve a grid config from an array
+// ------------------------------------------------
+
+@function mk-grid-config( $name, $key: 'base' ) {
+
+	@if ( __mk_get_global_grid_config_map() ) {
+
+		$map: __mk_get_global_grid_config_map();
+		$map-name-exists: map-has-key( $map, $name );
+		$map-key-exists: null;
+
+		// Check to see if the requested name exists
+		@if ( $map-name-exists ) {
+
+			$map-key-exists: map-has-key( map-get( $map, $name ), $key );
+
+			// Check to see if the requested key exists
+			@if ( $map-key-exists ) {
+
+				@return map-get( map-get( $map, $name ), $key );
+
+			}
+
+			@else {
+
+				@if ( $key == false ) {
+
+					@return null;
+
+				}
+
+				@else {
+
+					@warn "Unknown '#{ $name }' in $mk-global-grid.";
+					@return null;
+
+				}
+
+			}
+
+		}
+
+		@else {
+
+			@warn "Unknown '#{ $key }' in $mk-global-grid( #{ $name } ).";
+			@return null;
+
+		}
+
+	} 
+
+	@else {
+
+		@warn "Global grid has not yet been set.";
+		@return null;
+
+	}
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Get the global grid config map
+// ------------------------------------------------
+
+@function __mk_get_global_grid_config_map() {
+
+	@return $mk-global-grid;
+
+}
+
+
+
+
+
+// ------------------------------------------------
+//	Retrieve the requested size from the breakpoint map
+// ------------------------------------------------
+
+@function __mk-get-media-query-size( $size ) {
+
+	// Check within major breakpoints
+	@if ( mk-grid-config( 'breakpoints', $size ) ) {
+
+		@return mk-grid-config( 'breakpoints', $size );
+
+	}
+
+	@return null;
+
+}
+
+
+
+
+
+
+// ------------------------------------------------
+//	Add a grid WIDTH to the global grid WIDTH array
+// ------------------------------------------------
+
+@mixin mk-add-grid-width( $name, $key, $value ) {
+
+	$mk-global-grid-widths: mk-add-data( __mk_get_global_grid_width_map(), $name, $key, $value ) !global;
+
+}
+
+
+
+
+
+// ------------------------------------------------
+//	Get the global grid width map
+// ------------------------------------------------
+
+@function __mk_get_global_grid_width_map() {
+
+	@return $mk-global-grid-widths;
+
+}
+
+
+
+
+
+
+// ------------------------------------------------
+//	Function for outputting grid widths
+// 
+//	Arguments are optional, so this can be reused for specific project cases
+// ------------------------------------------------
+
+@mixin mk-generate-grid-widths( $map: __mk_get_global_grid_width_map(), $prefix: '.g-', $initialbp: 'base' ) {
+
+	// Loop through each breakpoint size
+	@each $bp, $sizes in $map {
+
+		// Loop through each defined width
+		@each $name, $size in $sizes {
+
+			// Check to ensure it's not our initial breakpoint (mobile first)
+			@if ( $bp != $initialbp ) {
+
+				@include mk-media-query( $bp ) {
+
+					#{ $prefix }#{ $name }\@#{ $bp } {
+
+						width: $size;
+
+					}
+
+				}
+
+			}
+
+			// If it's our initial breakpoint, don't output /@size indicators
+			@else {
+
+				#{ $prefix }#{ $name } {
+
+					width: $size;
+
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+
+
+
+
+
+
+// ------------------------------------------------
+//	Include a media query
+// ------------------------------------------------
+
+@mixin mk-media-query( $from: null, $until: null, $basepx: 16px ) {
+
+	$bp_from: null;
+	$bp_until: null;
+
+	$query_from: '';
+	$query_until: '';
+	$query_join: '';
+
+	// Check to see if FROM is a number, or a defined breakpoint
+	@if type-of( $from ) == 'number' and not unitless( $from ) {
+
+		$bp_from: $from;
+
+	}
+
+	@elseif ( $from != null ) {
+
+		$bp_from: __mk-get-media-query-size( $from );
+
+	}
+
+
+
+	// Check to see if UNTIL is a number, or a defined breakpoint
+	@if type-of( $until ) == 'number' and not unitless( $until ) {
+
+		$bp_until: $until;
+
+	}
+
+	@elseif ( $until != null ) {
+
+		$bp_until: __mk-get-media-query-size( $until );
+
+	}
+
+
+
+	// Set from query if not false
+	@if ( $bp_from ) {
+
+		$query_from: "( min-width: #{ $bp_from } )";
+
+	}
+
+
+	// Set until query if not false
+	@elseif ( $bp_until ) {
+
+		$bp_until: ( $bp_until - 1 );
+		$query_until: "( max-width: #{ $bp_until } )";
+
+	}
+
+
+	// Set join if until and from are both not false
+	@if ( $bp_from  and  $bp_until ) {
+
+		$query_join: " and ";
+
+	}
+
+
+	// Output query
+	$query: #{ $query_from } #{ $query_join } #{ $query_until };
+	@media #{ $query } {
+
+		@content;
+
+	}
+
+}
+
+
+
+
+
+// ------------------------------------------------
+//	Include a grid column size
+// ------------------------------------------------
+
+@function col( $span, $columns: mk-grid-config( base, columns ) ) {
+
+	@return ( ( 100% / $columns ) * $span );
+
+}

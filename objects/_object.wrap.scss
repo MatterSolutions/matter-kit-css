@@ -1,0 +1,113 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Object - Wrap
+//
+// 	Wrap object to ensure a gutter between the elements and the viewport
+//	By default, this also contains a maximum width
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-obj-wrap-name: wrap !default;
+
+@mixin mk-get-wrap-width( $width ) {
+
+	@if ( $width == 'wide' ) {
+
+		max-width: none;
+
+	} 
+
+	@elseif ( $width == 'extend' ) {
+
+		max-width: ( mk-grid-config( 'base', 'wrap-width' ) + ( mk-grid-config( 'base', 'wrap-width' ) / mk-grid-config( 'base', 'columns' ) ) );
+
+	}
+
+	@elseif ( $width == 'grid' ) {
+
+		max-width: ( mk-grid-config( 'base', 'wrap-width' ) );
+
+	}
+
+	@elseif ( $width == 'petite' ) {
+
+		max-width: calc-rem( ( mk-grid-config( 'base', 'wrap-width' ) / 3 ) * 2 );
+		
+	}
+
+	@elseif ( $width == 'narrow' ) {
+
+		max-width: calc-rem( mk-grid-config( 'base', 'wrap-width' ) / 2 );
+		
+	}
+
+	@else {
+
+		max-width: $width;
+
+	}
+
+}
+
+@if ( map-has-key( __mk_get_global_objects_map(), $mk-obj-wrap-name ) ) {
+
+	$mk-obj-wrap-selector: mk-get-selector( $mk-obj-wrap-name, map-get( map-get( __mk_get_global_objects_map(), $mk-obj-wrap-name ), 'base' ), $mk-obj-prefix ) !default;
+	$map: map-get( __mk_get_global_objects_map(), $mk-obj-wrap-name );
+
+	#{ $mk-obj-wrap-selector } {
+
+		@include mk-get-wrap-width( 'grid' );
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: ( mk-grid-config( 'base', 'page-gutter' ) );
+		padding-right: ( mk-grid-config( 'base', 'page-gutter' ) );
+
+
+		// 100% Width Modifier
+		@if ( map-has-key( $map, 'wide' ) ) {
+
+			&--wide {
+
+				@include mk-get-wrap-width( 'wide' );
+
+			}
+
+		}
+
+
+		// Petite Modifier
+		@if ( map-has-key( $map, 'petite' ) ) {
+
+			&--petite {
+
+				@include mk-get-wrap-width( 'petite' );
+
+			}
+
+		}
+
+
+		// Extend Modifier
+		@if ( map-has-key( $map, 'extend' ) ) {
+
+			&--extend {
+
+				@include mk-get-wrap-width( 'extend' );
+
+			}
+
+		}
+
+	}
+
+}

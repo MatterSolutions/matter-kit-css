@@ -1,0 +1,46 @@
+// * --------------------------------------------------------
+//         __ __  __
+//       /  /   /   /     __/__/__
+//       \ /   /   /  __   /  /  __  (/__
+//        /   /   / /  /  /  /  /__) /  /
+//       /   /   / (__/__/_ /__/____/  /_/
+//               \
+//                 SOLUTIONS
+// 
+// 	Lists
+// 	Standard styling for ordered, unordered lists and their list items
+// 
+// ---------------------------------------------------------- */
+
+$mk-lists-reset-margin--bottom: 0 !default;
+$mk-lists-reset-unordered-style: disc !default;
+$mk-lists-reset-ordered-style: decimal !default;
+
+@if ( $mk-reset-lists == true ) {
+
+	li {
+
+		> ul,
+		> ol {
+
+			margin-bottom: $mk-lists-reset-margin--bottom;
+
+		}
+
+	}
+
+
+	ul {
+
+		list-style-type: $mk-lists-reset-unordered-style;
+
+	}
+
+
+	ol {
+
+		list-style-type: $mk-lists-reset-ordered-style;
+
+	}
+
+}

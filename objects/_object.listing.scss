@@ -1,0 +1,180 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Object - Listing
+//
+// 	Listing function for laying items out with vertical space between them
+//	This is useful for grids or lists of items ensuring even spacing
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-obj-listing-name: ltg !default;
+
+@mixin mk-create-listing( $size: null, $mk-obj-listing-selector: mk-get-selector( $mk-obj-listing-name, map-get( map-get( __mk_get_global_objects_map(), $mk-obj-listing-name ), 'base' ), $mk-obj-prefix ) ) {
+
+	@if ( $size ) {
+
+		@if ( $size > mk-grid-config( 'base', 'gutter' ) ) {
+
+			margin-bottom: -( calc-rem( $size ) );
+
+		}
+
+		@else {
+
+			margin-bottom: -( round( $size ) );
+
+		}
+
+	}
+
+	> #{ $mk-obj-listing-selector }__item {
+
+		@if ( $size ) {
+
+			@if ( $size > mk-grid-config( 'base', 'gutter' ) ) {
+
+				margin-bottom: ( calc-rem( $size ) );
+
+			}
+
+			@else {
+
+				margin-bottom: ( round( $size ) );
+
+			}
+
+		}
+
+	}
+
+}
+
+
+
+@if ( map-has-key( __mk_get_global_objects_map(), $mk-obj-listing-name ) ) {
+
+	$mk-obj-listing-selector: mk-get-selector( $mk-obj-listing-name, map-get( map-get( __mk_get_global_objects_map(), $mk-obj-listing-name ), 'base' ), $mk-obj-prefix ) !default;
+	$map: map-get( __mk_get_global_objects_map(), $mk-obj-listing-name );
+
+	#{ $mk-obj-listing-selector } {
+
+		@extend #{ mk-get-selector( $mk-obj-layout-name, true, $mk-obj-prefix ) };
+		@include mk-create-listing( ( mk-grid-config( 'base', 'gutter' ) ) );
+		display: block;
+
+		&__item {
+
+			$mk-lyt-item-selector: #{ mk-get-selector( $mk-obj-layout-name, true, $mk-obj-prefix ) };
+
+			@extend #{ $mk-lyt-item-selector }__item;
+
+		}
+
+
+		// Border Width Modifier
+		@if ( map-has-key( $map, 'bordered' ) ) {
+
+			&--bordered {
+
+				@include mk-create-listing( mk-misc-config( 'border', 'width' ) );
+
+			}
+
+		}
+
+
+		// Nano Modifier
+		@if ( map-has-key( $map, 'nano' ) ) {
+
+			&--nano {
+
+				@include mk-create-listing( mk-grid-config( 'base', 'gutter' ) / 8 );
+
+			}
+
+		}
+
+
+		// Tiny Modifier
+		@if ( map-has-key( $map, 'tiny' ) ) {
+
+			&--tiny {
+
+				@include mk-create-listing( mk-grid-config( 'base', 'gutter' ) / 4 );
+
+			}
+
+		}
+
+
+		// Small Modifier
+		@if ( map-has-key( $map, 'small' ) ) {
+
+			&--small {
+
+				@include mk-create-listing( mk-grid-config( 'base', 'gutter' ) / 2 );
+
+			}
+
+		}
+
+
+		// Large Modifier
+		@if ( map-has-key( $map, 'large' ) ) {
+
+			&--large {
+
+				@include mk-create-listing( mk-grid-config( 'base', 'gutter' ) * 2 );
+
+			}
+
+		}
+
+
+		// Huge Modifier
+		@if ( map-has-key( $map, 'huge' ) ) {
+
+			&--huge {
+
+				@include mk-create-listing( mk-grid-config( 'base', 'gutter' ) * 4 );
+
+			}
+
+		}
+
+
+		// Giga Modifier
+		@if ( map-has-key( $map, 'giga' ) ) {
+
+			&--giga {
+
+				@include mk-create-listing( mk-grid-config( 'base', 'gutter' ) * 8 );
+
+			}
+
+		}
+
+
+		// Flush Modifier
+		@if ( map-has-key( $map, 'flush' ) ) {
+
+			&--flush {
+
+				@include mk-create-listing( 0 );
+
+			}
+
+		}
+
+	}
+
+}

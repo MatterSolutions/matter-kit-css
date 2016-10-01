@@ -1,0 +1,132 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Object - Tint
+//
+// 	Apply a background colour to make overlaid text more readable
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-obj-tint-name: tint !default;
+$mk-obj-tint-color: mk-color( grey-ui, black-ui ) !default;
+
+
+
+// ------------------------------------------------
+//	Create the mixin
+// ------------------------------------------------
+@mixin mk-create-tint( $background-color: $mk-obj-tint-color, $opacity: .3 ) {
+
+	background-color: $background-color;
+	opacity: $opacity;
+
+}
+
+
+
+// ------------------------------------------------
+//	Output the object
+// ------------------------------------------------
+@if ( map-has-key( __mk_get_global_objects_map(), $mk-obj-tint-name ) ) {
+
+	$mk-obj-tint-selector: mk-get-selector( $mk-obj-tint-name, map-get( map-get( __mk_get_global_objects_map(), $mk-obj-tint-name ), 'base' ), $mk-obj-prefix ) !global;
+	$map: map-get( __mk_get_global_objects_map(), $mk-obj-tint-name );
+
+	#{ $mk-obj-tint-selector } {
+
+		position: relative;
+
+		&:before {
+
+			@include mk-create-tint( $mk-obj-tint-color, .3 );
+			content: "";
+			display: block;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			z-index: 2;
+
+		}
+
+
+		&__body {
+
+			position: relative;
+			z-index: 5;
+
+		}
+		
+
+		// Heavy Modifier
+		@if ( map-has-key( $map, 'heavy' ) ) {
+
+			&--heavy {
+
+				&:before {
+
+					@include mk-create-tint( $mk-obj-tint-color, .7 );
+
+				}
+
+			}
+
+		}
+
+
+		// Light Modifier
+		@if ( map-has-key( $map, 'light' ) ) {
+
+			&--light {
+
+				&:before {
+
+					@include mk-create-tint( $mk-obj-tint-color, .1 );
+
+				}
+
+			}
+
+		}
+
+
+		// Loop through each colour in the palette
+		// Check if we want to output the colour as a 'tint' colour
+		@each $colour, $palette in __mk_get_global_palette_map() {
+
+			@if ( map-has-key( $map, $colour ) ) {
+
+				&--#{ $colour } {
+
+					background-color: mk-color( $colour );
+
+				}
+
+			}
+
+		}
+
+
+		// White Modifier
+		@if ( map-has-key( $map, 'white' ) ) {
+
+			&--white {
+
+				background-color: mk-color( grey-ui, white-ui );
+
+			}
+
+		}
+
+	}
+
+}

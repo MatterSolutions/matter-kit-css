@@ -1,0 +1,37 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Reset - Core Reset
+//
+// 	Import the main resets for the framework
+//
+// ---------------------------------------------------------------------------- *
+
+
+$mk-reset-normalize: true !default;
+$mk-reset-box-model: true !default;
+$mk-reset-clearfix: true !default;
+$mk-reset-reset: true !default;
+$mk-reset-lists: true !default;
+$mk-reset-shared: true !default;
+$mk-reset-image: true !default;
+$mk-reset-links: true !default;
+
+
+// Normalise
+@import 'reset/normalize';
+@import 'reset/box-model';
+@import 'reset/reset';
+@import 'reset/clearfix';
+@import 'reset/lists';
+@import 'reset/shared';
+@import 'reset/images';
+@import 'reset/links';

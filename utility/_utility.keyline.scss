@@ -1,0 +1,42 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Utility - Keyline
+//
+// 	Display a keyline
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-util-keyline-name: keyline !default;
+
+@if ( map-has-key( __mk_get_global_utility_map(), $mk-util-keyline-name ) ) {
+
+	$mk-util-keyline-selector: mk-get-selector( $mk-util-keyline-name, map-get( map-get( __mk_get_global_utility_map(), $mk-util-keyline-name ), 'base' ), $mk-util-prefix ) !default;
+	$map: map-get( __mk_get_global_utility_map(), $mk-util-keyline-name );
+
+	#{ $mk-util-keyline-selector } {
+
+		border-top: mk-misc-config( border, size ) mk-misc-config( border, style ) mk-color( grey-ui );
+
+		// Thin
+		@if ( map-has-key( $map, thin ) ) {
+
+			&--thin {
+
+				border-top-width: 1px;
+
+			}
+
+		}
+
+	}
+
+}

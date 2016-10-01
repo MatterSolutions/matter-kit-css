@@ -1,0 +1,171 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Global Functions
+//
+// 	Misc global functions
+//
+// ---------------------------------------------------------------------------- *
+
+
+
+
+
+// ------------------------------------------------
+//	Merge a key into a map
+// ------------------------------------------------
+
+@function mk-add-key-to-map( $map, $key, $value ) {
+
+	$new: ( $key: $value );
+	@return map-merge( $map, $new );
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Add data to a map, returns final map
+// ------------------------------------------------
+
+@function mk-add-data( $map, $outer_key, $inner_key, $value ) {
+
+	// Check if the 'outer_key' already exists and we're just adding an inner_key
+	@if ( map-has-key( $map, $outer_key ) ) {
+
+		$inner_map: map-get( $map, $outer_key );
+		$inner_map: mk-add-key-to-map( $inner_map, $inner_key, $value );
+
+		@return mk-add-key-to-map( $map, $outer_key, $inner_map );
+
+	// outer_key doesn't exist, add a new one
+	} @else {
+
+		$inner_map: ();
+		$inner_map: mk-add-key-to-map( $inner_map, $inner_key, $value );
+
+		@return mk-add-key-to-map( $map, $outer_key, $inner_map );
+
+	}
+
+}
+
+
+
+
+
+// ------------------------------------------------
+//	Get data from a map
+// ------------------------------------------------
+
+@function mk-get-data( $map, $outer_key, $inner_key ) {
+
+	// Check if the 'outer_key' already exists and we're just adding an inner_key
+	@if ( map-has-key( $map, $outer_key ) ) {
+
+		$inner_map: map-get( $map, $outer_key );
+
+		@if ( map-has-key( $inner_map, $inner_key ) ) {
+
+			@return map-get( map-get( $map, $outer_key ), $inner_key );
+
+		}
+
+		@else {
+
+			@return null;
+
+		}
+
+	}
+
+	@else {
+
+		@return null;
+
+	}
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Power function
+//	Written by Daniel Perez Alvarez
+//	Blog post: https://unindented.org/articles/trigonometry-in-sass/
+// ------------------------------------------------
+
+@function pow( $number, $exp ) {
+	$value: 1;
+
+	@if $exp > 0 {
+
+		@for $i from 1 through $exp {
+
+			$value: $value * $number;
+
+		}
+
+	}
+
+	@else if $exp < 0 {
+
+		@for $i from 1 through -$exp {
+
+			$value: $value / $number;
+
+		}
+
+	}
+
+	@return $value;
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Strip a number of it's unit
+// ------------------------------------------------
+
+@function strip-unit( $number ) {
+
+	@if type-of( $number ) == 'number' and not unitless( $number ) {
+		@return $number / ( $number * 0 + 1 );
+	}
+
+	@return $number;
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Include theme specific content
+//
+//	This mixin checks the global theme var and will 
+//	output content if true. We can now include different
+//	styles within our components for different themes
+// ------------------------------------------------
+
+@mixin mk-theme( $name ) {
+
+	@if ( $mk-global-theme == $name ) {
+
+		@content;
+
+	}
+
+}

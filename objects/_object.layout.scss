@@ -1,0 +1,461 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Object - Layout
+//
+// 	Layout function for laying items out
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-obj-layout-name: lyt !default;
+
+@mixin mk-create-layout( $size: null, $vertical-align: null, $horizontal-align: null, $mk-obj-layout-selector: null ) {
+
+	@if ( $size ) {
+
+		@if ( $size > mk-grid-config( 'base', 'gutter' ) ) {
+
+			margin-left: -( calc-rem( $size * 2 ) );
+
+		}
+
+		@else {
+
+			margin-left: -( round( $size * 2 ) );
+
+		}
+
+	}
+
+	@if ( $horizontal-align ) {
+
+		text-align: $horizontal-align;
+
+	}
+
+	> #{ $mk-obj-layout-selector }__item {
+
+		@if ( $size ) {
+
+			@if ( $size > mk-grid-config( 'base', 'gutter' ) ) {
+
+				padding-left: ( calc-rem( $size * 2 ) );
+
+			}
+
+			@else {
+
+				padding-left: ( round( $size * 2 ) );
+
+			}
+
+		}
+
+		@if ( $vertical-align ) {
+
+			vertical-align: $vertical-align;
+
+		}
+
+		@if ( $horizontal-align and $horizontal-align != left ) {
+
+			text-align: left;
+
+		}
+
+	}
+
+}
+
+
+
+@if ( map-has-key( __mk_get_global_objects_map(), $mk-obj-layout-name ) ) {
+
+	$mk-obj-layout-selector: mk-get-selector( $mk-obj-layout-name, map-get( map-get( __mk_get_global_objects_map(), $mk-obj-layout-name ), 'base' ), $mk-obj-prefix ) !default;
+	$map: map-get( __mk_get_global_objects_map(), $mk-obj-layout-name );
+
+	#{ $mk-obj-layout-selector } {
+
+		display: block;
+		margin-bottom: 0;
+		@include mk-create-layout( ( mk-grid-config( 'base', 'gutter' ) / 2 ), top, null, $mk-obj-layout-selector );
+
+		&__item {
+
+			display: inline-block;
+			width: 100%;
+
+		}
+
+
+		// Border Width Modifier
+		@if ( map-has-key( $map, 'bordered' ) ) {
+
+			&--bordered {
+
+				@include mk-create-layout( mk-misc-config( 'border', 'width' ), null, null, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+		// Nano Modifier
+		@if ( map-has-key( $map, 'nano' ) ) {
+
+			&--nano {
+
+				@include mk-create-layout( mk-grid-config( 'base', 'gutter' ) / 16, null, null, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+		// Tiny Modifier
+		@if ( map-has-key( $map, 'tiny' ) ) {
+
+			&--tiny {
+
+				@include mk-create-layout( mk-grid-config( 'base', 'gutter' ) / 8, null, null, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+		// Small Modifier
+		@if ( map-has-key( $map, 'small' ) ) {
+
+			&--small {
+
+				@include mk-create-layout( mk-grid-config( 'base', 'gutter' ) / 4, null, null, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+		// Large Modifier
+		@if ( map-has-key( $map, 'large' ) ) {
+
+			&--large {
+
+				@include mk-create-layout( mk-grid-config( 'base', 'gutter' ) * 2, null, null, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+		// Huge Modifier
+		@if ( map-has-key( $map, 'huge' ) ) {
+
+			&--huge {
+
+				@include mk-create-layout( mk-grid-config( 'base', 'gutter' ) * 4, null, null, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+		// Giga Modifier
+		@if ( map-has-key( $map, 'giga' ) ) {
+
+			&--giga {
+
+				@include mk-create-layout( mk-grid-config( 'base', 'gutter' ) * 8, null, null, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+		// Flush Modifier
+		@if ( map-has-key( $map, 'flush' ) ) {
+
+			&--flush {
+
+				@include mk-create-layout( 0, null, null, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+
+		// Auto width modifier
+		@if ( map-has-key( $map, 'auto' ) ) {
+
+			&--auto {
+
+				> #{ $mk-obj-layout-selector }__item {
+
+					width: auto;
+
+				}
+
+			}
+
+		}
+
+
+
+		// Middle Vertical Alignment Modifier
+		@if ( map-has-key( $map, 'middle' ) ) {
+
+			&--middle {
+
+				@include mk-create-layout( null, middle, null, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+
+		// Bottom Vertical Alignment Modifier
+		@if ( map-has-key( $map, 'bottom' ) ) {
+
+			&--bottom {
+
+				@include mk-create-layout( null, bottom, null, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+
+		// Baseline Vertical Alignment Modifier
+		@if ( map-has-key( $map, 'baseline' ) ) {
+
+			&--baseline {
+
+				@include mk-create-layout( null, baseline, null, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+
+		// Left Horizontal Alignment Modifier
+		@if ( map-has-key( $map, 'left' ) ) {
+
+			&--left {
+
+				@include mk-create-layout( null, null, left, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+		// Right Horizontal Alignment Modifier
+		@if ( map-has-key( $map, 'right' ) ) {
+
+			&--right {
+
+				@include mk-create-layout( null, null, right, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+
+		// Center Horizontal Alignment Modifier
+		@if ( map-has-key( $map, 'center' ) ) {
+
+			&--center {
+
+				@include mk-create-layout( null, null, center, $mk-obj-layout-selector );
+
+			}
+
+		}
+
+
+
+		// Split left/right Alignment Modifier
+		@if ( map-has-key( $map, 'split' ) ) {
+
+			$mk-obj-layout-breakpoint--split: $mk-obj-navigation-breakpoint !default;
+
+			&--split {
+
+				@include mk-media-query( "#{ $mk-obj-layout-breakpoint--split }" ) {
+
+					> #{ $mk-obj-layout-selector }__item {
+
+						text-align: center;
+
+					}
+
+					> #{ $mk-obj-layout-selector }__item:first-of-type {
+
+						text-align: left;
+
+					}
+
+					> #{ $mk-obj-layout-selector }__item:last-of-type {
+
+						text-align: right;
+
+					}
+
+				}
+
+			}
+
+		}
+
+
+
+
+		// Reverse Flow Direction Modifier
+		@if ( map-has-key( $map, 'reverse' ) ) {
+
+			&--reverse {
+
+				direction: rtl;
+
+				> #{ $mk-obj-layout-selector }__item {
+
+					direction: ltr;
+					text-align: left;
+
+				}
+
+			}
+
+		}
+
+
+
+		// Alternate Flow Direction Modifier
+		@if ( map-has-key( $map, 'alternate' ) ) {
+
+			&--alternate {
+
+				text-align: left;
+
+				> #{ $mk-obj-layout-selector }__item > #{ $mk-obj-layout-selector } {
+
+					direction: ltr;
+
+				}
+
+				> #{ $mk-obj-layout-selector }__item:nth-of-type( 2n ) > #{ $mk-obj-layout-selector } {
+
+					direction: rtl;
+					text-align: inherit;
+
+					#{ $mk-obj-layout-selector }__item {
+
+						direction: ltr;
+
+					}
+
+				}
+
+				// Check to see if we've also enabled 'reverse'
+				@if ( map-has-key( $map, 'reverse' ) ) {
+
+					&#{ $mk-obj-layout-selector }--reverse {
+
+						text-align: left;
+
+						> #{ $mk-obj-layout-selector }__item > #{ $mk-obj-layout-selector } {
+
+							direction: rtl;
+
+							> #{ $mk-obj-layout-selector }__item {
+
+								direction: ltr;
+
+							}
+
+						}
+
+						> #{ $mk-obj-layout-selector }__item:nth-of-type( 2n ) > #{ $mk-obj-layout-selector } {
+
+							direction: ltr;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+
+
+		// Media layout Modifier
+		@if ( map-has-key( $map, 'media' ) ) {
+
+			&--media {
+
+				$mk-obj-layout-breakpoint--media: $mk-obj-navigation-breakpoint !default;
+
+				@include mk-media-query( "#{ $mk-obj-layout-breakpoint--media }" ) {
+
+					> #{ $mk-obj-layout-selector }__item #{ $mk-obj-layout-selector }__content {
+
+						padding-left: mk-misc-config( padding, single-column );
+						padding-right: 0;
+
+					}
+
+					> #{ $mk-obj-layout-selector }__item:nth-of-type( 2n ) #{ $mk-obj-layout-selector }__content {
+
+						padding-left: 0;
+						padding-right: mk-misc-config( padding, single-column );
+
+					}
+
+
+					// Check to see if we've also enabled 'reverse'
+					@if ( map-has-key( $map, 'reverse' ) ) {
+
+						&#{ $mk-obj-layout-selector }--reverse {
+	
+							> #{ $mk-obj-layout-selector }__item #{ $mk-obj-layout-selector }__content {
+
+								padding-left: 0;
+								padding-right: mk-misc-config( padding, single-column );
+
+							}
+
+							> #{ $mk-obj-layout-selector }__item:nth-of-type( 2n ) #{ $mk-obj-layout-selector }__content {
+
+								padding-left: mk-misc-config( padding, single-column );
+								padding-right: 0;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+}

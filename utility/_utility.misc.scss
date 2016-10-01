@@ -1,0 +1,11 @@
+$mk-utility-image-wide: true !default;
+
+@if ( $mk-utility-image-wide == true ) {
+
+	.u-image--wide {
+
+		max-width: none;
+
+	}
+
+}

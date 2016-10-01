@@ -1,0 +1,49 @@
+// * --------------------------------------------------------
+//         __ __  __
+//       /  /   /   /     __/__/__
+//       \ /   /   /  __   /  /  __  (/__
+//        /   /   / /  /  /  /  /__) /  /
+//       /   /   / (__/__/_ /__/____/  /_/
+//               \
+//                 SOLUTIONS
+// 
+// 	Images
+// 	Base styling for images and SVG elements
+// 
+// ---------------------------------------------------------- */
+
+$mk-reset-image--js-inject-svg: true !default;
+
+
+@if ( $mk-reset-image == true ) {
+
+	img {
+
+		font-style: italic;
+		height: auto;
+		max-width: 100%;
+		vertical-align: middle;
+
+	}
+
+
+	svg {
+
+		fill: currentColor;
+		vertical-align: baseline;
+
+	}
+
+
+	@if ( $mk-reset-image--js-inject-svg == true ) {
+
+		// Hide empty svg image elements
+		.js-inject-svg[src=""] {
+
+			display: none;
+
+		}
+
+	}
+
+}

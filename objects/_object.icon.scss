@@ -1,0 +1,163 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Object - Icon
+//
+// 	Add consistent sizing for icons
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-obj-icon-name: icon !default;
+
+// Vars
+$mk-obj-icon-size--base: mk-base-spacing-unit( .75, false ) !default;
+$mk-obj-icon-size--small: mk-base-spacing-unit( .5, false ) !default;
+$mk-obj-icon-size--large: mk-base-spacing-unit( 1.5, false ) !default;
+$mk-obj-icon-size--huge: mk-base-spacing-unit( large, false ) !default;
+$mk-obj-icon-size--before: .75em !default;
+$mk-obj-icon-size--after: .75em !default;
+
+// Mixin to generate the icon markup
+@mixin mk-create-icon( $size: null ) {
+
+	height: $size;
+	width: $size;
+
+	> svg,
+	> img {
+
+		height: inherit;
+		width: inherit;
+
+	}
+
+}
+
+
+@if ( map-has-key( __mk_get_global_objects_map(), $mk-obj-icon-name ) ) {
+
+	$mk-obj-icon-selector: mk-get-selector( $mk-obj-icon-name, map-get( map-get( __mk_get_global_objects_map(), $mk-obj-icon-name ), 'base' ), $mk-obj-prefix ) !default;
+	$map: map-get( __mk_get_global_objects_map(), $mk-obj-icon-name );
+
+	#{ $mk-obj-icon-selector } {
+
+		@include mk-create-icon( calc-em( $mk-obj-icon-size--base, mk-typography( size, base ) ) );
+
+		// Small Modifier
+		@if ( map-has-key( $map, 'small' ) ) {
+
+			&--small {
+
+				@include mk-create-icon( calc-em( $mk-obj-icon-size--small, mk-typography( size, base ) ) );
+
+			}
+
+		}
+
+
+
+		// Large Modifier
+		@if ( map-has-key( $map, 'large' ) ) {
+
+			&--large {
+
+				@include mk-create-icon( calc-em( $mk-obj-icon-size--large, mk-typography( size, base ) ) );
+
+			}
+
+		}
+
+
+
+		// Huge Modifier
+		@if ( map-has-key( $map, 'huge' ) ) {
+
+			&--huge {
+
+				@include mk-create-icon( calc-em( $mk-obj-icon-size--huge, mk-typography( size, base ) ) );
+
+			}
+
+		}
+
+
+
+		// Before Modifier
+		@if ( map-has-key( $map, 'before' ) ) {
+
+			&--before {
+
+				margin-right: $mk-obj-icon-size--before;
+
+
+				@if ( map-has-key( $map, 'small' ) ) {
+
+					&#{ $mk-obj-icon-selector }--small {
+
+						margin-right: ( $mk-obj-icon-size--before / 2 );
+
+					}
+
+				}
+
+
+
+				@if ( map-has-key( $map, 'large' ) ) {
+
+					&#{ $mk-obj-icon-selector }--large {
+
+						margin-right: ( $mk-obj-icon-size--before * 2 );
+
+					}
+
+				}
+
+			}
+
+		}
+
+
+
+		// After Modifier
+		@if ( map-has-key( $map, 'after' ) ) {
+
+			&--after {
+
+				margin-left: $mk-obj-icon-size--after;
+
+			}
+
+		}
+
+
+
+		// After Modifier
+		@if ( map-has-key( $map, 'middle' ) ) {
+
+			&--middle {
+
+				vertical-align: middle;
+
+				> svg,
+				> img {
+
+					vertical-align: inherit;
+
+				}
+
+			}
+
+		}
+
+
+	}
+
+}

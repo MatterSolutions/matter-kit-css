@@ -1,0 +1,56 @@
+// * --------------------------------------------------------
+//        __ __  __
+//      /  /   /   /     __/__/__
+//      \ /   /   /  __   /  /  __  (/__
+//       /   /   / /  /  /  /  /__) /  /
+//      /   /   / (__/__/_ /__/____/  /_/
+//              \
+//                SOLUTIONS
+//
+//	Shared
+//	Set consistent spacing on elements to keep the vertical rythm consistent.
+//
+// ---------------------------------------------------------- */
+
+
+$mk-shared-margin--bottom: mk-base-spacing-unit( base ) !default;
+$mk-shared-margin--left: mk-base-spacing-unit( base ) !default;
+
+
+@if ( $mk-reset-shared == true ) {
+
+	h1, h2, h3, h4, h5, h6,
+	ul, ol, dl,
+	blockquote, p, address,
+	table,
+	fieldset, figure,
+	pre,
+	%mk-margin-bottom {
+
+		margin-bottom: $mk-shared-margin--bottom;
+
+		.u-negate-btm-margin & {
+
+			&:last-child:not( .o-listing ) {
+
+				margin-bottom: 0;
+
+			}
+
+		}
+
+	}
+
+
+
+
+
+	ul, ol, dd,
+	%mk-margin-left {
+
+		margin-left: $mk-shared-margin--left;
+
+	}
+
+
+}

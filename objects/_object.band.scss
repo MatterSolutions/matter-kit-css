@@ -1,0 +1,243 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Object - Band
+//
+// 	Add equal space above and below an element, with optional colours
+//	based on the theme settings
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-obj-band-name: band !default;
+
+@mixin mk-create-band( $size: null, $background-color: null, $color: null ) {
+
+	@if ( $size ) {
+
+		padding-top: $size;
+		padding-bottom: $size;
+
+	}
+
+	@if ( $background-color ) {
+
+		background-color: $background-color;
+
+	}
+
+	@if ( $color ) {
+
+		color: $color;
+
+	}
+
+}
+
+
+@if ( map-has-key( __mk_get_global_objects_map(), $mk-obj-band-name ) ) {
+
+	$mk-obj-band-selector: mk-get-selector( $mk-obj-band-name, map-get( map-get( __mk_get_global_objects_map(), $mk-obj-band-name ), 'base' ), $mk-obj-prefix ) !default;
+	$map: map-get( __mk_get_global_objects_map(), $mk-obj-band-name );
+
+	#{ $mk-obj-band-selector } {
+
+		@include mk-create-band( mk-base-spacing-unit( 'base' ) );
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		display: block;
+
+		// Nano Modifier
+		@if ( map-has-key( $map, 'nano' ) ) {
+
+			&--nano {
+
+				@include mk-create-band( mk-base-spacing-unit( 'nano' ) );
+
+			}
+
+		}
+
+
+		// Tiny Modifier
+		@if ( map-has-key( $map, 'tiny' ) ) {
+
+			&--tiny {
+
+				@include mk-create-band( mk-base-spacing-unit( 'tiny' ) );
+
+			}
+
+		}
+
+
+		// Small Modifier
+		@if ( map-has-key( $map, 'small' ) ) {
+
+			&--small {
+
+				@include mk-create-band( mk-base-spacing-unit( small ) );
+
+			}
+
+		}
+
+
+		// Large Modifier
+		@if ( map-has-key( $map, 'large' ) ) {
+
+			&--large {
+
+				@include mk-create-band( mk-base-spacing-unit( large ) );
+
+			}
+
+		}
+
+
+		// Huge Modifier
+		@if ( map-has-key( $map, 'huge' ) ) {
+
+			&--huge {
+
+				@include mk-create-band( mk-base-spacing-unit( huge ) );
+
+			}
+
+		}
+
+
+		// Giga Modifier
+		@if ( map-has-key( $map, 'giga' ) ) {
+
+			&--giga {
+
+				@include mk-create-band( mk-base-spacing-unit( giga ) );
+
+			}
+
+		}
+
+
+
+		// Flush Modifier
+		@if ( map-has-key( $map, 'flush' ) ) {
+
+			&--flush {
+
+				@include mk-create-band( 0 );
+
+			}
+
+		}
+
+
+		// Loop through each colour in the palette
+		// Check if we want to output the colour as a 'band' colour
+		@each $colour, $palette in __mk_get_global_palette_map() {
+
+			@if ( map-has-key( $map, $colour ) ) {
+
+				&--#{ $colour } {
+
+					@if ( lightness( mk-color( $colour ) ) < 50 ) {
+
+						@include mk-create-band( null, mk-color( $colour ), mk-color( grey-ui, white-ui ) );
+
+						a,
+						h1,
+						h2,
+						h3,
+						h4,
+						h5,
+						h6 {
+
+							color: inherit;
+
+						}
+
+					}
+
+					@else {
+
+						@include mk-create-band( null, mk-color( $colour ) );
+
+					}
+
+				}
+
+			}
+
+		}
+
+
+		// White Modifier
+		@if ( map-has-key( $map, 'white' ) ) {
+
+			&--white {
+
+				@include mk-create-band( null, $mk-color--white );
+
+			}
+
+		}
+
+
+		// Tiled background Modifier
+		@if ( map-has-key( $map, 'tiled' ) ) {
+
+			&--tiled {
+
+				background-repeat: repeat;
+				background-size: auto;
+
+			}
+
+		}
+
+
+		// Contain Background Modifier
+		@if ( map-has-key( $map, 'bg-contain' ) ) {
+
+			&--bg-contain {
+
+				background-size: contain;
+
+			}
+
+		}
+
+
+
+		// Extend Modifier
+		@if ( map-has-key( $map, 'extend' ) ) {
+
+			&--extend {
+
+				@if ( mk-grid-config( 'base', 'wrap-width' ) != none ) {
+
+					// Calculate a column size based on max width
+					$col-size: ( mk-grid-config( 'base', 'wrap-width' ) / mk-grid-config( 'base', 'columns' ) );
+
+					margin-left: auto;
+					margin-right: auto;
+					max-width: ( mk-grid-config( 'base', 'wrap-width' ) + ( $col-size * 2 ) );
+
+				}
+
+			}
+
+		}
+
+
+	}
+
+}

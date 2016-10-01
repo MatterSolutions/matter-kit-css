@@ -1,0 +1,43 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Global Functions - Utility
+//
+// 	Setup and retrieve the project utility configuration
+//
+// ---------------------------------------------------------------------------- *
+
+
+
+
+
+// ------------------------------------------------
+//	Include a global utility 'object'
+// ------------------------------------------------
+
+@mixin mk-add-utility( $name, $key: base, $value: true ) {
+
+	$mk-global-utility: mk-add-data( __mk_get_global_utility_map(), $name, $key, $value ) !global;
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Get the global utility map
+// ------------------------------------------------
+
+@function __mk_get_global_utility_map() {
+
+	@return $mk-global-utility;
+
+}

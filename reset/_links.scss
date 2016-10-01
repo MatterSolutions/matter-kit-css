@@ -1,0 +1,54 @@
+// * --------------------------------------------------------
+//         __ __  __
+//       /  /   /   /     __/__/__
+//       \ /   /   /  __   /  /  __  (/__
+//        /   /   / /  /  /  /  /__) /  /
+//       /   /   / (__/__/_ /__/____/  /_/
+//               \
+//                 SOLUTIONS
+// 
+// 	Links
+// 	Base styling for anchor tags / links
+// 
+// ---------------------------------------------------------- */
+
+$mk-link-text-decoration: 			underline !default;
+$mk-link-text-decoration--hover:	none !default;
+
+$mk-reset-link-color:               mk-color( primary ) !default;
+$mk-reset-link-color--hover:        mk-color( primary, light ) !default;
+$mk-reset-link-color--active:       $mk-reset-link-color--hover !default;
+$mk-reset-link-color--visited:      mk-color( primary, dark ) !default;
+
+@if ( $mk-reset-links == true ) {
+
+	a {
+
+		color: $mk-reset-link-color;
+		text-decoration: $mk-link-text-decoration;
+
+		&:visited {
+
+			color: $mk-reset-link-color--visited;
+
+		}
+
+
+		&:hover {
+
+			color: $mk-reset-link-color--hover;
+			text-decoration: $mk-link-text-decoration--hover;
+
+		}
+
+
+		&:active {
+
+			color: $mk-reset-link-color--active;
+
+		}
+
+
+	}
+
+}

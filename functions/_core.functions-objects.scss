@@ -1,0 +1,110 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Global Functions - Objects
+//
+// 	Setup and retrieve the project object configuration
+//
+// ---------------------------------------------------------------------------- *
+
+
+
+
+
+// ------------------------------------------------
+//	Add a object config to the global object array
+// ------------------------------------------------
+
+@mixin mk-add-object( $name, $key, $value: true ) {
+
+	$mk-global-objects: mk-add-data( __mk_get_global_objects_map(), $name, $key, $value ) !global;
+
+}
+
+
+
+
+
+
+// ------------------------------------------------
+//	Output all objects 'added'
+//
+//	@TODO: Waiting on dynamic mixins to automate mixin calls
+// ------------------------------------------------
+
+@mixin mk-output-mixin-map( $map: __mk_get_global_objects_map() ) {
+
+	// @if ( __mk_get_global_objects_map() ) {
+
+	// 	@each $obj, $modifier in __mk_get_global_objects_map() {
+
+	// 		$mixin: mk-object-#{ $obj }-#{ $modifier };
+
+	// 		@if ( mixin-exists( $mixin ) ) {
+
+	// 			@include #{ $mixin };
+
+	// 		}
+
+	// 	}
+
+	// } 
+
+	// @else {
+
+	// 	@warn "Global objects have not yet been set.";
+
+	// }
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Get the global grid config map
+// ------------------------------------------------
+
+@function __mk_get_global_objects_map() {
+
+	@return $mk-global-objects;
+
+}
+
+
+
+
+// ------------------------------------------------
+//	Return a selector as a placeholder or a class
+// ------------------------------------------------
+
+@function mk-get-selector( $name, $output: true, $namespace: $mk-namespace, $prefix: null ) {
+
+	// Force objects to be silent if the global obj modifier is set
+	@if ( $mk-objects-silent ) {
+
+		@return "%#{ $prefix }#{ $namespace }#{ $name }";
+
+	}
+
+	@if ( $output == true ) {
+
+		@return ".#{ $prefix }#{ $namespace }#{ $name }";
+
+	}
+
+	@else {
+
+		@return "%#{ $prefix }#{ $namespace }#{ $name }";
+
+	}
+
+}

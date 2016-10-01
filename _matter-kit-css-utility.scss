@@ -1,0 +1,33 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Global Setup
+//
+// 	Main import file for the utility aspects of the Matter Kit framework
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-utilities-silent: null !default; // Set to true to force utilities to be 'quiet'
+
+// Import global var declarations
+// @import 'utility/utility.misc';
+@import 'utility/utility.accessibility';
+@import 'utility/utility.background';
+@import 'utility/utility.display';
+@import 'utility/utility.line-length';
+@import 'utility/utility.position';
+@import 'utility/utility.text';
+@import 'utility/utility.keyline';
+@import 'utility/utility.hard';
+@import 'utility/utility.soft';
+@import 'utility/utility.flush';
+@import 'utility/utility.push';
+@import 'utility/utility.pull';

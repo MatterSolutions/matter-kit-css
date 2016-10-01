@@ -1,0 +1,60 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Utility - Line Length
+//
+// 	Set the text at an optimal line length for reading
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-util-line-length-name: line-length !default;
+$mk-util-line-length-selector: mk-get-selector( $mk-util-line-length-name, map-get( map-get( __mk_get_global_utility_map(), $mk-util-line-length-name ), 'base' ), $mk-util-prefix ) !default;
+
+@if ( map-has-key( __mk_get_global_utility_map(), $mk-util-line-length-name ) ) {
+
+	$map: map-get( __mk_get_global_utility_map(), $mk-util-line-length-name );
+
+	#{ $mk-util-line-length-selector } {
+
+		max-width: mk-typography( base, line-length );
+
+		&--wide {
+
+			max-width: none;
+
+		}
+		
+
+		&--petite {
+
+			max-width: ( ( mk-typography( base, line-length ) / 3 ) * 2 );
+
+		}
+
+
+		&--left,
+		&--center {
+
+			margin-right: auto;
+
+		}
+
+
+		&--right,
+		&--center {
+
+			margin-left: auto;
+
+		}
+
+	}
+
+}

@@ -1,0 +1,148 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Object - list
+//
+// 	Common styling options for lists
+//
+// ---------------------------------------------------------------------------- *
+
+$mk-obj-list-name: list !default;
+
+@if ( map-has-key( __mk_get_global_objects_map(), $mk-obj-list-name ) ) {
+
+	$mk-obj-list-selector: mk-get-selector( $mk-obj-list-name, map-get( map-get( __mk_get_global_objects_map(), $mk-obj-list-name ), 'base' ), $mk-obj-prefix ) !default;
+	$map: map-get( __mk_get_global_objects_map(), $mk-obj-list-name );
+
+	#{ $mk-obj-list-selector } {
+		
+
+		// Inline Modifier
+		@if ( map-has-key( $map, 'inline' ) ) {
+
+			&--inline {
+
+				padding-left: 0;
+
+				> li {
+
+					display: inline-block;
+					width: auto;
+
+				}
+
+			}
+
+		}
+
+
+
+		// Delimited Modifier
+		@if ( map-has-key( $map, 'delimited' ) ) {
+
+			&--delimited {
+
+				> li + li {
+
+					&:before {
+
+						content: '|';
+						margin-left: 1em;
+						margin-right: 1em;
+
+					}
+					
+				}
+
+			}
+
+		}
+
+
+
+		// Bare Modifier
+		@if ( map-has-key( $map, 'bare' ) ) {
+
+			&--bare {
+
+				list-style: none;
+				margin-left: 0 !important;
+
+			}
+
+		}
+
+
+
+		// Decimal Modifier
+		@if ( map-has-key( $map, 'decimal' ) ) {
+
+			&--decimal {
+
+				list-style: decimal;
+
+			}
+
+		}
+
+
+
+		// Disc Modifier
+		@if ( map-has-key( $map, 'disc' ) ) {
+
+			&--disc {
+
+				list-style: disc;
+
+			}
+
+		}
+
+
+
+		// Lower Roman Modifier
+		@if ( map-has-key( $map, 'lower-roman' ) ) {
+
+			&--lower-roman {
+
+				list-style: lower-roman;
+
+			}
+
+		}
+
+
+
+		// Fancy Delimited Modifier
+		@if ( map-has-key( $map, 'comma-delimited' ) ) {
+
+			&--comma-delimited {
+
+				> li:after {
+
+					content: ",";
+
+				}
+
+
+				> li:last-of-type:after {
+
+					content: "";
+
+				}
+
+			}
+
+		}
+
+	}
+
+}

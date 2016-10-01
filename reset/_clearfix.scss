@@ -1,0 +1,31 @@
+// * ---------------------------------------------------------------------------    
+// 
+//       __ __  __
+//     /  /   /   /     __/__/__
+//     \ /   /   /  __   /  /  __  (/__
+//      /   /   / /  /  /  /  /__) /  /
+//     /   /   / (__/__/_ /__/____/  /_/
+//             \
+//               SOLUTIONS
+// 
+// 
+//	=Reset - Clearfix
+//
+// 	Allow extending or drop-in classes to clear floated elements
+//
+// ---------------------------------------------------------------------------- *
+
+@if ( $mk-reset-clearfix == true ) {
+
+	.clearfix,
+	%clearfix { 
+
+		&:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+	}
+
+}
