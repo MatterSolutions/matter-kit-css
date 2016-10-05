@@ -390,11 +390,112 @@ To enable a layout object option in your project, you can configure them in the 
 ```
 
 ##### Layout
-The layout module is used for laying items out. This is designed to work with the grid system we have configured in our base framework and our grid widths. 
+The layout module is used for laying items out. This is designed to work with the grid system we have configured in our base framework and our grid widths. The layout object works using display: inline-block; so be wary of whitespace between items. Using inline-block rather than floats allows us to use basic vertical alignment for grid items. 
 
 **Default name:** lyt
 
 The default name can be changed by setting the `$mk-obj-layout-name` variable before importing the main object import file.
+
+The 'o-lyt' layout class is designed to be used for layout purposes and is tied to built-in grid system. By default, layout items fill the space. Using our grid-width classes, we can set these to change size across our major responsive breakpoints.
+
+```
+<ul class="o-lyt">
+    <li class="o-lyt__item  g-one-third@desk">First column</li>
+    <li class="o-lyt__item  g-one-third@desk">Second column</li>
+    <li class="o-lyt__item  g-one-third@desk">Third column</li>
+</ul>
+```
+
+There are also several modifiers to adjust the default layout. To enable these, we need to invoke the base layout object:
+
+```
+// Include the base layout object
+@include mk-add-object( 'lyt', 'base' );
+```
+
+**.o-lyt--bordered** - sets the gutter between layout items to the width of our global borders
+```
+@include mk-add-object( 'lyt', 'bordered' );
+```
+**.o-lyt--nano** - sets the gutter between layout items to 1/8 of the standard gutter
+```
+@include mk-add-object( 'lyt', 'nano' );
+```
+**.o-lyt--tiny** - sets the gutter between layout items to 1/4 of the standard gutter
+```
+@include mk-add-object( 'lyt', 'tiny' );
+```
+**.o-lyt--small** - sets the gutter between layout items to 1/2 of the standard gutter
+```
+@include mk-add-object( 'lyt', 'small' );
+```
+**.o-lyt--large** - sets the gutter between layout items to 2 * the standard gutter
+```
+@include mk-add-object( 'lyt', 'large' );
+```
+**.o-lyt--huge** - sets the gutter between layout items to 4 * the standard gutter
+```
+@include mk-add-object( 'lyt', 'huge' );
+```
+**.o-lyt--giga** - sets the gutter between layout items to 8 * the standard gutter
+```
+@include mk-add-object( 'lyt', 'giga' );
+```
+**.o-lyt--flush** - removes the gutter between layout items
+```
+@include mk-add-object( 'lyt', 'flush' );
+```
+**.o-lyt--auto** - removes the 100% width on the items - layout items will be as wide as the content inside them
+```
+@include mk-add-object( 'lyt', 'auto' );
+```
+**.o-lyt--middle** - vertically align the layout items to the middle
+```
+@include mk-add-object( 'lyt', 'middle' );
+```
+**.o-lyt--bottom** - vertically align the layout items to the bottom
+```
+@include mk-add-object( 'lyt', 'bottom' );
+```
+**.o-lyt--baseline** - vertically align the layout items to the baseline
+```
+@include mk-add-object( 'lyt', 'baseline' );
+```
+**.o-lyt--left** - horizontally align the layout items to the left
+```
+@include mk-add-object( 'lyt', 'left' );
+```
+**.o-lyt--right** - horizontally align the layout items to the right
+```
+@include mk-add-object( 'lyt', 'right' );
+```
+**.o-lyt--center** - horizontally align the layout items to the center
+```
+@include mk-add-object( 'lyt', 'center' );
+```
+**.o-lyt--split** - horizontally center the items, until a defined breakpoint, then left align the first column and right align the last column
+```
+@include mk-add-object( 'lyt', 'split' );
+```
+**.o-lyt--reverse** - swap the order of the items using direction: rtl;
+```
+@include mk-add-object( 'lyt', 'reverse' );
+```
+**.o-lyt--alternate** - swap the direction of nested lyt objects to alternate left/right.
+```
+@include mk-add-object( 'lyt', 'alternate' );
+```
+**.o-lyt--media** - add extra padding to the image columns to create further separation between the text and image.
+```
+@include mk-add-object( 'lyt', 'media' );
+```
+
+
+
+
+
+
+Mixins for the layout object
 
 ```
 mk-create-layout( $size: null, $vertical-align: null, $horizontal-align: null )
