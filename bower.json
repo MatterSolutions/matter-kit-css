@@ -1,6 +1,6 @@
 {
 	"name": "matter-kit-css",
-	"version": "0.9.0",
+	"version": "0.9.3",
 	"dependencies": {
 		"bourbon": "~4.2.0"
 	},
