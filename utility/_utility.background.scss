@@ -24,6 +24,43 @@ $mk-util-background-name: bg !default;
 
 	#{ $mk-util-background-selector } {
 
+		// Standard
+		@if ( map-has-key( $map, 'standard' ) ) {
+
+			&--standard {
+
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'standard--#{ $breakpoints }' ) ) {
+
+					&--standard\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							background-position: center;
+							background-repeat: no-repeat;
+							background-size: cover;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
 
 		// Contain
 		@if ( map-has-key( $map, 'contain' ) ) {
