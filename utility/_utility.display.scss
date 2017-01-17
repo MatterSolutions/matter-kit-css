@@ -24,6 +24,38 @@ $mk-util-display-name: display !default;
 
 	#{ $mk-util-display-selector } {
 
+		// Block
+		@if ( map-has-key( $map, 'block' ) ) {
+
+			&--block {
+
+				display: block !important;
+
+			}
+
+			// Loop through each breakpoint
+			// Check if we want to output the breakpoint
+			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+				@if ( map-has-key( $map, 'center--#{ $breakpoints }' ) ) {
+
+					&--block\@#{ $breakpoints } {
+
+						@include mk-media-query( "#{ $breakpoints }" ) {
+
+							display: block !important;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
 		// Center
 		@if ( map-has-key( $map, 'center' ) ) {
 
