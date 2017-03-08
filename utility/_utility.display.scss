@@ -170,29 +170,7 @@ $mk-util-display-name: display !default;
 
 			}
 
-			// Loop through each breakpoint
-			// Check if we want to output the breakpoint
-			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
-
-				@if ( map-has-key( $map, 'show--#{ $breakpoints }' ) ) {
-
-					&--show\@#{ $breakpoints } {
-
-						@include mk-media-query( "#{ $breakpoints }" ) {
-
-							display: block;
-
-						}
-
-					}
-
-				}
-
-			}
-
 		} // end if
-
-
 
 
 
@@ -205,19 +183,23 @@ $mk-util-display-name: display !default;
 
 			}
 
-			// Loop through each breakpoint
-			// Check if we want to output the breakpoint
-			@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+		} // end if
 
-				@if ( map-has-key( $map, 'hide--#{ $breakpoints }' ) ) {
 
-					&--hide\@#{ $breakpoints } {
 
-						@include mk-media-query( "#{ $breakpoints }" ) {
 
-							display: none;
+		// Loop through each breakpoint
+		// Check if we want to output the breakpoint
+		@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
 
-						}
+			// Each SHOW breakpoint
+			@if ( map-has-key( $map, 'show--#{ $breakpoints }' ) ) {
+
+				&--show\@#{ $breakpoints } {
+
+					@include mk-media-query( "#{ $breakpoints }" ) {
+
+						display: block;
 
 					}
 
@@ -225,7 +207,22 @@ $mk-util-display-name: display !default;
 
 			}
 
-		} // end if
+			// Each HIDE breakpoint
+			@if ( map-has-key( $map, 'hide--#{ $breakpoints }' ) ) {
+
+				&--hide\@#{ $breakpoints } {
+
+					@include mk-media-query( "#{ $breakpoints }" ) {
+
+						display: none;
+
+					}
+
+				}
+
+			}
+
+		}
 
 
 
