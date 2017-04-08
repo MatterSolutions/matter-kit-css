@@ -16,6 +16,7 @@
 // ---------------------------------------------------------------------------- *
 
 $mk-obj-layout-name: lyt !default;
+$mk-obj-layout-offset-size: 4px !default;
 
 @mixin mk-create-layout( $size: null, $vertical-align: null, $horizontal-align: null, $mk-obj-layout-selector: null ) {
 
@@ -454,7 +455,21 @@ $mk-obj-layout-name: lyt !default;
 
 			}
 
-		}
+		} // End media
+
+
+
+
+		// Used to offset whitespace between display:inline-block; elements
+		@if ( map-has-key( $map, 'offset' ) ) {
+
+			&--offset {
+
+				margin-right: -( $mk-obj-layout-offset-size );
+
+			}
+
+		} // end offset
 
 	}
 
