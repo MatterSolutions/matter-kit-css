@@ -465,7 +465,11 @@ $mk-obj-layout-offset-size: 4px !default;
 
 			&--offset {
 
-				margin-right: -( $mk-obj-layout-offset-size );
+				> #{ $mk-obj-layout-selector }__item {
+
+					margin-right: -( $mk-obj-layout-offset-size );
+
+				}
 
 			}
 
