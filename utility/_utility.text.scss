@@ -1,5 +1,5 @@
-// * ---------------------------------------------------------------------------    
-// 
+// * ---------------------------------------------------------------------------
+//
 //       __ __  __
 //     /  /   /   /     __/__/__
 //     \ /   /   /  __   /  /  __  (/__
@@ -7,8 +7,8 @@
 //     /   /   / (__/__/_ /__/____/  /_/
 //             \
 //               SOLUTIONS
-// 
-// 
+//
+//
 //	=Utility - Text
 //
 // 	Text manipulation helpers
@@ -56,7 +56,7 @@ $mk-util-text-name: text !default;
 		} // end if
 
 
-		
+
 		// Left
 		@if ( map-has-key( $map, 'left' ) ) {
 
@@ -486,6 +486,78 @@ $mk-util-text-name: text !default;
 							@include mk-media-query( "#{ $breakpoints }" ) {
 
 								font-style: italic;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+
+		// Large size
+		@if ( map-has-key( $map, 'large' ) ) {
+
+			&--large {
+
+				font-size: mk-typography( size, large );
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'large--#{ $breakpoints }' ) ) {
+
+						&--large\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								font-size: mk-typography( size, large );
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} // end if
+
+
+
+
+
+
+
+		// Small size
+		@if ( map-has-key( $map, 'small' ) ) {
+
+			&--small {
+
+				font-size: mk-typography( size, small );
+
+				// Loop through each breakpoint
+				// Check if we want to output the breakpoint
+				@each $breakpoints, $breakpoint in map-get( __mk_get_global_grid_config_map(), 'breakpoints' ) {
+
+					@if ( map-has-key( $map, 'small--#{ $breakpoints }' ) ) {
+
+						&--small\@#{ $breakpoints } {
+
+							@include mk-media-query( "#{ $breakpoints }" ) {
+
+								font-size: mk-typography( size, small );
 
 							}
 
