@@ -29,11 +29,15 @@ $mk-shared-margin--left: mk-base-spacing-unit( base ) !default;
 
 		margin-bottom: $mk-shared-margin--bottom;
 
-		.u-negate-btm-margin & {
+		@if ( $mk-reset-negate-btm-margin == true ) {
 
-			&:last-child:not( .o-listing ) {
+			.u-negate-btm-margin & {
 
-				margin-bottom: 0;
+				&:last-child:not( .o-listing ) {
+
+					margin-bottom: 0;
+
+				}
 
 			}
 

@@ -1,5 +1,5 @@
-// * ---------------------------------------------------------------------------    
-// 
+// * ---------------------------------------------------------------------------
+//
 //       __ __  __
 //     /  /   /   /     __/__/__
 //     \ /   /   /  __   /  /  __  (/__
@@ -7,8 +7,8 @@
 //     /   /   / (__/__/_ /__/____/  /_/
 //             \
 //               SOLUTIONS
-// 
-// 
+//
+//
 //	=Reset - Core Reset
 //
 // 	Import the main resets for the framework
@@ -24,6 +24,7 @@ $mk-reset-lists: true !default;
 $mk-reset-shared: true !default;
 $mk-reset-image: true !default;
 $mk-reset-links: true !default;
+$mk-reset-negate-btm-margin: true !default;
 
 
 // Normalise
