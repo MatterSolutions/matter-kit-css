@@ -9,3 +9,18 @@ $mk-utility-image-wide: true !default;
 	}
 
 }
+
+
+
+
+$mk-utility-image-round: true !default;
+
+@if ( $mk-utility-image-round == true ) {
+
+	.u-image--round {
+
+		border-radius: 50%;
+
+	}
+
+}
