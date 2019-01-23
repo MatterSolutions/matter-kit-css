@@ -1,0 +1,24 @@
+{
+  "name": "matter-kit-css",
+  "version": "1.0.0",
+  "description": "A lightweight object-oriented Sass-based CSS framework",
+  "main": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatterSolutions/matter-kit-css.git"
+  },
+  "keywords": [
+    "Matter",
+    "Solutions",
+    "CSS",
+    "Framework",
+    "OOCSS",
+    "Sass"
+  ],
+  "author": "Matter Solutions",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MatterSolutions/matter-kit-css/issues"
+  },
+  "homepage": "https://github.com/MatterSolutions/matter-kit-css#readme"
+}
